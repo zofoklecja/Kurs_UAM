@@ -14,7 +14,7 @@
         code: 'SP-ABC',
         services: []
     });
-    
+       
     global.UAM.aircrafts[0].services.push({
         name: 'smth1',
         timeToExecute: 120
@@ -24,22 +24,73 @@
 
     global.UAM.addAircraft = function (newAircraftCode) {
         // function should return new aircraft object
+        //zabezpieczyć przed duplikatami
+        if (typeof(newAircraftCode) != "string") {
+            alert("Invalid code!");
+            return undefined;
+        }
+        else {
+            for (var item in this.aircrafts) {
+                if (item.code == newAircraftCode) {
+                    alert("This aircraft already exists!");
+                    return undefined;
+                }
+            }
+            this.aircrafts.push({code: newAircraftCode, services: []});
+            return {code: newAircraftCode, services: []};
+        }
     };
 
     global.UAM.removeAircraft = function (aircraftObj) {
         // !!!
+        for (var item in this.aircrafts) {
+            if (itrm.code == aircraftObj.code) {
+                this.aircrafts.splice(i,1);
+                return this.aircrafts;
+            }
+        }
+        alert("There is no such aircraft!");
+        return this.aircrafts;
     };
 
-    global.UAM.addWorkToAircraft = function(aircraftObj, name, timeToExxecute) {
+    global.UAM.addWorkToAircraft = function(aircraftObj, name, timeToExecute) {
         // !!!
+        for (var i=0; i < this.aircrafts.length; i++) {
+            if (this.aircrafts[i].code == aircraftObj.code) {
+                this.aircrafts[i].services.push({name: name, timeToExecute: timeToExecute});
+                return this.aircrafts[i].services;
+            }
+        }
+        alert("There is no such aircraft!");
+        return this.aircrafts;        
     };
         
-    global.UAM.reduceTimeToExecute = function(time) {
-        // !!!
+    global.UAM.reduceTimeToExecute = function(aircraft, time) {
+        // !!! wszystkie prace
+        for (var item in this.aircrafts) {
+            if (item.code == aircraft.code) {
+                for (var service in item.services) {
+                    service.timeToExecute -= time;
+                }
+            return item.services;
+            }
+        }
+        alert("There is no such aircraft!");
+        return this.aircrafts;
     };
     
     global.UAM.getAircraftsForRepairs = function(maxTimeToExecute) {
-        // !!!
+        // !!! przynajmniej jeden czas przeglądu jest mniejszy niż ustalony
+        var results = [];
+        for (var aircraft in this.aircrafts) {
+            for (var service in this.aircrafts.services) {
+                if (service.timeToExecute < maxTimeToExecute) {
+                    results.push(aircraft);
+                    break;
+                }
+            }
+        }
+        return results;
     };
 
 }(window));
@@ -69,4 +120,7 @@ reduceTimeToExecute(newAircraft2, 20);
 
 getAircraftsForRepairs(100); // [ newAircraft2 ]
 
+rozwiązanie jako link do repo andrzej.matlosz@gmail.com do wtorku(20.10) 17:00
+testy z nieprawidłowymi danymi, funkcje nie powinny dzialać
+ale zawsze z prawidłową liczbą argumentów
 */
