@@ -1,10 +1,25 @@
 (function (global) {
-	var Cat = null, Bird = null, Worm = null;
-
-	if (!global.UAM) {
+    if (!global.UAM) {
 		global.UAM = {};
 	}
+    
+    var Animal = {
+        eat: function (obj) {
+            if (Object.getPrototypeOf(this) === Cat && Object.getPrototypeOf(obj) === Bird) {
+                return "Mniam!";
+                }
+            else if (Object.getPrototypeOf(this) === Bird && Object.getPrototypeOf(obj) === Worm) {
+                return "Mniam!";
+                }
+            else {
+                return "Blee!";
+            }
+        }
+    }
+    
+	var Cat = Object.create(Animal), Bird = Object.create(Animal), Worm = Object.create(Animal);
 
+    
 	global.UAM.Cat = Cat;
 	global.UAM.Bird = Bird;
 	global.UAM.Worm = Worm;
