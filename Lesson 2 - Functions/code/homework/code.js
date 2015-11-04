@@ -24,34 +24,26 @@
 
     global.UAM.addAircraft = function (newAircraftCode) {
         // function should return new aircraft object
-        //zabezpieczyć przed duplikatami
-        if (typeof(newAircraftCode) != "string") {
-            alert("Invalid code!");
-            return undefined;
-        }
-        else {
-            for (var item in this.aircrafts) {
+        for (var item in this.aircrafts) {
                 if (item.code == newAircraftCode) {
                     alert("This aircraft already exists!");
                     return undefined;
                 }
             }
-            this.aircrafts.push({code: newAircraftCode, services: []});
-            return {code: newAircraftCode, services: []};
-        }
+            var newAircraft = {code: newAircraftCode, services: []};
+            this.aircrafts.push(newAircraft);
+            return newAircraft; // musi wskazywać na obiekt w tablicy a nie na identyczny duplikat 
     };
 
     global.UAM.removeAircraft = function (aircraftObj) {
         // !!!
-        for (var item in this.aircrafts) {
-            if (itrm.code == aircraftObj.code) {
+        var i = this.aircrafts.indexOf(aircraftObj);
+        if (i > -1) {
                 this.aircrafts.splice(i,1);
-                return this.aircrafts;
             }
-        }
-        alert("There is no such aircraft!");
-        return this.aircrafts;
-    };
+    }
+    //indexOf podaje indeks obiektu, jeśli nie ma zwraca -1
+    // this.aircrafts.splice(index,1)
 
     global.UAM.addWorkToAircraft = function(aircraftObj, name, timeToExecute) {
         // !!!
@@ -60,23 +52,17 @@
                 this.aircrafts[i].services.push({name: name, timeToExecute: timeToExecute});
                 return this.aircrafts[i].services;
             }
-        }
-        alert("There is no such aircraft!");
-        return this.aircrafts;        
+        }       
     };
         
     global.UAM.reduceTimeToExecute = function(aircraft, time) {
         // !!! wszystkie prace
-        for (var item in this.aircrafts) {
-            if (item.code == aircraft.code) {
-                for (var service in item.services) {
-                    service.timeToExecute -= time;
-                }
-            return item.services;
+        var i = this.aircrafts.indexOf(aircraft);
+        if (typeof this.aircrafts[i].services !== 'undefined' && i > 0) {
+            for (var service in this.aircrafts[i].services) {
+                service.timeToExecute = service.timeToExecute - time;
             }
         }
-        alert("There is no such aircraft!");
-        return this.aircrafts;
     };
     
     global.UAM.getAircraftsForRepairs = function(maxTimeToExecute) {
