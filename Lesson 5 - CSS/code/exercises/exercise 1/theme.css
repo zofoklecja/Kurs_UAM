@@ -1,7 +1,13 @@
+* {
+    border-color: red;
+}
 .row {
-    display: block;
+    display: flex;
 }
 
+.1 {
+    border-radius: 10px;  
+}
 
 /*Zadanie domowe:
 struktura html i css dla samolotów (klikalna apka) na 17 listopada
