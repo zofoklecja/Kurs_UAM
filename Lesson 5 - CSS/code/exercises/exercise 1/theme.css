@@ -69,7 +69,17 @@ body {
 
 .second p:before {
     content: url(cat.jpg);
+    width: 1em;
+    height: 1em;
 
+}
+
+.second p {
+    display: inline-block;
+    width: 90%;
+    white-space: nowrap;
+    overflow:hidden !important;
+    text-overflow: ellipsis;
 }
 /*Zadanie domowe:
 struktura html i css dla samolotów (klikalna apka) na 17 listopada
