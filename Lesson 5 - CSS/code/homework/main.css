@@ -1,0 +1,91 @@
+//body * {
+	border: 1px dotted black;
+}
+
+body {
+	color: rgba(35, 35, 35, 0.8);
+	font-size: 2vw;
+	font-size: 16pt;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 600px;
+  margin: 50px auto;
+  resize: both;
+  overflow: visible;
+}
+
+nav {
+	display: flex;
+	margin: 0;
+	padding: 5px;
+}
+
+h1 {
+	margin: 0;
+	width: 90%;
+	font-size: 4vw;
+	font-size: 28pt;
+	text-transform: uppercase;
+}
+
+
+.menu {
+	width: 100%;
+	margin: 0px;
+	padding: 10px;
+	background-color: hsl(212, 33%, 80%);
+	box-shadow: 4px 4px 8px #ccc;
+}
+
+ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+}
+
+li {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0.5vw 0 0.5vw 0;
+	box-shadow: 1px 1px 3px #aaa;
+}
+
+span {
+	width: 91%;
+	padding: 5px;
+}
+
+form {
+	padding: 10px;
+}
+
+button {
+	height: 45px;
+	width: 45px;
+	font-size: 14pt;
+	border: none;
+	outline: none;
+	padding: auto;
+	background-color: hsl(212, 33%,95%);
+	margin: 2px;
+	box-shadow: 1px 1px 3px #bbb;
+}
+
+button:active {
+	box-shadow: 0 0 0;
+}
+
+/*może da się jsem zmienić co drugi kolor*/
+li {
+	background-color: hsl(212, 33%, 89%);
+}
+li:hover {
+	background-color: hsl(212, 33%, 84%);
+}

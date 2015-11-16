@@ -1,0 +1,45 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Aircrafts Management</title>
+  <meta name="description" content="web app for simple aircraft management">
+  <meta name="author" content="Zofia Drozd">
+  <script type="text/javascript" src="code.js"></script>
+  <SCRIPT LANGUAGE="JavaScript">
+function testResults (form) {
+    var TestVar = form.inputbox.value;
+    alert ("You typed: " + TestVar);
+}
+</SCRIPT>
+  <link rel="stylesheet" href="main.css">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+  <main>
+  	<div class="menu">
+      <nav>
+        <h1>Aircrafts</h1>
+        <button id="add">+</button>
+        <button id="time">⏳</button>
+      </nav>
+      <FORM NAME="myform" ACTION="" METHOD="GET">
+         <INPUT TYPE="text" NAME="inputbox" placeholder="Aircraft code">
+         <INPUT TYPE="button" NAME="button" Value="✓" onClick="testResults(this.form)">
+      </FORM>
+      <ul id="list">
+  			<li><span>aaa</span> <button>🔧</button><button>-</button></li>
+  			<li><span>bbb</span> <button>🔧</button><button>-</button></li>
+  			<li><span>ccc</span> <button>🔧</button><button>-</button></li>
+  			<li><span>ddd</span> <button>🔧</button><button>-</button></li>
+  		</ul>
+  	</div>
+  </main>
+</body>
+</html>
