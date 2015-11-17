@@ -143,13 +143,21 @@ window.onload = function () {
    var ul = document.getElementById("list");
    var li = document.createElement("li");
    var span = document.createElement("span");
+
+   var removeT = document.createAttribute("title");
+   removeT.value = "Remove this aircraft";
    var removeB = document.createElement("button");
+   removeB.setAttributeNode(removeT);
+
+   var addRepairT = document.createAttribute("title");
+   addRepairT.value = "Add repair to this aircraft";
    var addRepairB = document.createElement("button");
+   addRepairB.setAttributeNode(addRepairT);
 
    //uzupełnianie tekstem "dzieci" elementu
    span.appendChild(document.createTextNode(code));
-   addRepairB.appendChild(document.createTextNode("🔧"))
-   removeB.appendChild(document.createTextNode("-"));
+   addRepairB.appendChild(document.createTextNode("🔧+"))
+   removeB.appendChild(document.createTextNode("➖"));
 
    //dodanie eventu do buttona usuwania
    removeB.onclick = function () {
@@ -179,6 +187,15 @@ window.onload = function () {
    }
 
    var addButton = document.getElementById('add');
+   addButton.onclick = function() {
+      var form = document.getElementsByTagName("form")[0];
+      if (form.style.display != 'block') {
+         form.style.display = 'block';
+      }
+      else {
+         form.style.display = 'none';
+      }
+   }
 };
 
 /*
