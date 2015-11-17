@@ -145,12 +145,12 @@ window.onload = function () {
    var span = document.createElement("span");
 
    var removeT = document.createAttribute("title");
-   removeT.value = "Remove this aircraft";
+   removeT.value = "Remove aircraft";
    var removeB = document.createElement("button");
    removeB.setAttributeNode(removeT);
 
    var addRepairT = document.createAttribute("title");
-   addRepairT.value = "Add repair to this aircraft";
+   addRepairT.value = "Schedule repair";
    var addRepairB = document.createElement("button");
    addRepairB.setAttributeNode(addRepairT);
 
@@ -165,7 +165,7 @@ window.onload = function () {
       removeAircraftByCode(this.parentNode.firstChild.textContent);
    };
 
-   //tworzenie struktury html elementu
+   //tworzenie struktury html elementu listy
    li.appendChild(span);
    li.appendChild(addRepairB);
    li.appendChild(removeB);
@@ -186,15 +186,23 @@ window.onload = function () {
        addLi( aircrafts[i].code);
    }
 
+   //widzialność formularza dodania samolotu
    var addButton = document.getElementById('add');
+   var addForm = document.getElementsByTagName("form")[0];
    addButton.onclick = function() {
-      var form = document.getElementsByTagName("form")[0];
-      if (form.style.display != 'block') {
-         form.style.display = 'block';
+      if (addForm.style.display != 'block') {
+         addForm.style.display = 'block';
       }
       else {
-         form.style.display = 'none';
+         addForm.style.display = 'none';
       }
+   }
+
+   //działanie formularza
+   var addFormButton = addForm.button;
+   addFormButton.onclick = function() {
+      var input = addForm.inputbox.value;
+      addLi(input);
    }
 };
 
