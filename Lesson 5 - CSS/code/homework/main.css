@@ -59,13 +59,15 @@ li {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin: 0.5vw 0 0.5vw 0;
+	padding: 5px;
+	margin: 3px 0 3px 0;
 	box-shadow: 1px 1px 3px #aaa;
 }
 
 span {
 	width: 91%;
 	padding: 5px;
+	color: rgba(35, 35, 35, 0.65);
 }
 
 form {
@@ -74,12 +76,13 @@ form {
 }
 
 button {
-	height: 45px;
-	width: 45px;
+	height: 40px;
+	width: 40px;
 	font-size: 14pt;
 	border: none;
 	outline: none;
 	padding: auto;
+	color: rgba(35, 35, 35, 0.7);
 	background-color: hsl(212, 33%,95%);
 	margin: 2px;
 	box-shadow: 1px 1px 3px #bbb;

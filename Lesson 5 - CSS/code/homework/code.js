@@ -181,7 +181,7 @@ window.onload = function () {
          this.parentNode.parentNode.removeChild(this.parentNode);
       };
    }
-
+//populacja listy danymi z aircrafts
    for (var i=0; i< aircrafts.length; i++) {
        addLi( aircrafts[i].code);
    }
