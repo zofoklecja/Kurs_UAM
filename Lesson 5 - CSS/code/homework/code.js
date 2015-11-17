@@ -1,89 +1,103 @@
-(function (global) {
-   var mapArray;
+window.onload = function () {
 
-   if (!global.UAM) {
-      global.UAM = {};
-   }
-
-   global.UAM.aircrafts = [];
+    aircrafts = [];
 
     //////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////// Sample aircraft with sample service  ///////////////
+//populate arrays with aircrafts
+     aircrafts.push({
+        code: 'SP-ABC',
+        services: []
+    });
 
-//    global.UAM.aircrafts.push({
-//        code: 'SP-ABC',
-//        services: []
-//    });
+     aircrafts.push({
+        code: 'AB-CDE',
+        services: []
+    });
 
-//    global.UAM.aircrafts[0].services.push({
-//        name: 'smth1',
-//        timeToExecute: 120
-//    });
+     aircrafts.push({
+        code: 'EK-ASD',
+        services: []
+    });
+
+
+     aircrafts[0].services.push({
+       name: 'smth1',
+      timeToExecute: 120
+      });
 
     //////////////////////////////////////////////////////////////////////////////////////
 
-   global.UAM.addAircraft = function (newAircraftCode) {
+   addAircraft = function (newAircraftCode) {
       if (typeof newAircraftCode === 'string') {
          var x = 0;
-         global.UAM.aircrafts.forEach(function (item) {
+          aircrafts.forEach(function (item) {
             if (item.code === newAircraftCode) {
                x = 1;
             }
          });
          if (x === 0) {
-            global.UAM.aircrafts.push({
+             aircrafts.push({
                code: newAircraftCode,
                services: []
             });
-            return global.UAM.aircrafts[global.UAM.aircrafts.length - 1];
+            return  aircrafts[ aircrafts.length - 1];
          } else {
-            console.log('Aircraft with given code already exists.');
+            console.log('Aircraft with this code already exists.');
          }
       } else {
          console.log('Wrong type!');
       }
    };
 
-   global.UAM.removeAircraft = function (aircraftObj) {
+   removeAircraft = function (aircraftObj) {
       if (typeof aircraftObj === 'object') {
          var index = this.aircrafts.indexOf(aircraftObj);
          if (index !== -1) {
-            global.UAM.aircrafts.splice(index, 1);
+             aircrafts.splice(index, 1);
          } else {
-            console.log('Given aircraft does not exist');
+            console.log('Wrong aircraft!');
          }
       } else {
-         console.log('Given argument must be an object');
+         console.log('Must be an object!');
       }
    };
 
-   global.UAM.addWorkToAircraft = function (aircraftObj, name, timeToExxecute) {
-      if (typeof aircraftObj === 'object' && typeof name === 'string' && typeof timeToExxecute === 'number') {
+   removeAircraftByCode = function (code) {
+      for (var i=0; i<aircrafts.length; i++) {
+         if (code === aircrafts[i].code) {
+            aircrafts.splice(i, 1);
+         }
+      }
+   };
+
+    addWorkToAircraft = function (aircraftObj, name, timeToExecute) {
+      if (typeof aircraftObj === 'object' && typeof name === 'string' && typeof timeToExecute === 'number') {
          var index = this.aircrafts.indexOf(aircraftObj);
          if (index !== -1) {
-            global.UAM.aircrafts[index].services.push({
+             aircrafts[index].services.push({
                name: name,
-               timeToExecute: timeToExxecute
+               timeToExecute: timeToExecute
             });
          } else {
-            console.log('Given aircraft does not exist');
+            console.log('Wrong aircraft!');
          }
 		}
 		else {
-			console.log('Wrong type(s) of argument(s)');
+			console.log('Wrong type!');
 		}
     };
 
-   global.UAM.reduceTimeToExecute = function(aircraft, time) {
+    reduceTimeToExecute = function(aircraft, time) {
         // redukcja czasu na wszystkich zadaniach
         //iteracja po tablicy
         if (typeof aircraft === 'object' && typeof time === 'number'){
-            var index = global.UAM.aircrafts.indexOf(aircraft);
+            var index =  aircrafts.indexOf(aircraft);
             if (index !== -1) {
                 if (UAM.aircrafts[index].services !== null &&
                 UAM.aircrafts[index].services.length > 0){
 
-                    global.UAM.aircrafts[index].services.forEach (function(item) {
+                     aircrafts[index].services.forEach (function(item) {
                         if (item.timeToExecute - time < 0){
                            item.timeToExecute = 0;
                         }
@@ -92,19 +106,20 @@
                         }});
                 }
             }
-		          else {
-                console.log('Given aircraft does not exist');
+		      else {
+                console.log('Wrong aircraft!');
             }
-		    } else {
-			      console.log('Wrong types of argument(s)');
+         }
+         else {
+			      console.log('Wrong type!');
 		    }
    };
 
-    global.UAM.getAircraftsForRepairs = function(maxTimeToExecute) {
+     getAircraftsForRepairs = function(maxTimeToExecute) {
         // przejrzec wszystjkie prace wszystk samolotow
         if (typeof maxTimeToExecute === 'number'){
-        	global.UAM.aircraftsForRepair = [];
-		    global.UAM.aircrafts.forEach(function(item, index) {
+        	 aircraftsForRepair = [];
+		     aircrafts.forEach(function(item, index) {
 
                if (item.services !== null && item.services.length >0){
                     item.services.forEach(function(childItem) {
@@ -116,74 +131,71 @@
                     });
                }
             });
-            return global.UAM.aircraftsForRepair;
+            return  aircraftsForRepair;
 		}
 		else {
-			console.log('Given argument must be a number');
+			console.log('Must be a number!');
 		}
    };
 
-}(window));
 
-function updateData() {};
+ addLi = function (code) {
+   var ul = document.getElementById("list");
+   var li = document.createElement("li");
+   var span = document.createElement("span");
+   var removeB = document.createElement("button");
+   var addRepairB = document.createElement("button");
 
-window.onload = function () {
+   //uzupełnianie tekstem "dzieci" elementu
+   span.appendChild(document.createTextNode(code));
+   addRepairB.appendChild(document.createTextNode("🔧"))
+   removeB.appendChild(document.createTextNode("-"));
+
+   //dodanie eventu do buttona usuwania
+   removeB.onclick = function () {
+      this.parentNode.parentNode.removeChild(this.parentNode);
+      removeAircraftByCode(this.parentNode.firstChild.textContent);
+   };
+
+   //tworzenie struktury html elementu
+   li.appendChild(span);
+   li.appendChild(addRepairB);
+   li.appendChild(removeB);
+   //dodanie elementu do listy
+   ul.appendChild(li);
+};
+
    var listItems = document.getElementsByTagName('li');
+
 
    for (var i = 0; i < listItems.length; i++) {
       listItems[i].lastChild.onclick = function () {
          this.parentNode.parentNode.removeChild(this.parentNode);
-         console.log('WOW');
       };
    }
 
+   for (var i=0; i< aircrafts.length; i++) {
+       addLi( aircrafts[i].code);
+   }
+
    var addButton = document.getElementById('add');
-   addButton.onclick = function () {
-      //pokazanie formularza na kod samolotu
-      var code = "HEHEHEJ";
-      //odpalenie addAircraft z treścią formularza
-
-      //jesli ok edytowanie DOMu:
-      var ul = document.getElementById("list");
-      var li = document.createElement("li");
-      var span = document.createElement("span");
-      var removeB = document.createElement("button");
-      var addRepairB = document.createElement("button");
-
-      //uzupełnianie tekstem "dzieci" elementu
-      span.appendChild(document.createTextNode(code));
-      addRepairB.appendChild(document.createTextNode("🔧"))
-      removeB.appendChild(document.createTextNode("-"));
-
-      //dodanie eventu do buttona usuwania
-      removeB.onclick = function () {
-         this.parentNode.parentNode.removeChild(this.parentNode);
-      };
-
-      //tworzenie struktury html elementu
-      li.appendChild(span);
-      li.appendChild(addRepairB);
-      li.appendChild(removeB);
-      //dodanie elementu do listy
-      ul.appendChild(li);
-   };
 };
 
 /*
 Przykład użycia:
-var newAircraft1 = global.UAM.addAircraft('SP-XY1');
-var newAircraft2 = global.UAM.addAircraft('SP-XY2');
-global.UAM.addWorkToAircraft(newAircraft1, 'serviceXY1a', 110);
-global.UAM.addWorkToAircraft(newAircraft1, 'serviceXY1b', 130);
-global.UAM.reduceTimeToExecute(newAircraft1, 20);
-var sxy2a = global.UAM.addWorkToAircraft(newAircraft2, 'serviceXY2a', 130);
-var sxy2b = global.UAM.addWorkToAircraft(newAircraft2, 'serviceXY2b', 160);
-global.UAM.reduceTimeToExecute(newAircraft2, 20);
-global.UAM.getAircraftsForRepairs(100); // [ newAircraft1 ]
-global.UAM.removeAircraft(newAircraft1);
-global.UAM.getAircraftsForRepairs(100); // []
-global.UAM.reduceTimeToExecute(newAircraft2, 20);
-global.UAM.getAircraftsForRepairs(100); // [ newAircraft2 ]
+var newAircraft1 =  addAircraft('SP-XY1');
+var newAircraft2 =  addAircraft('SP-XY2');
+ addWorkToAircraft(newAircraft1, 'serviceXY1a', 110);
+ addWorkToAircraft(newAircraft1, 'serviceXY1b', 130);
+ reduceTimeToExecute(newAircraft1, 20);
+var sxy2a =  addWorkToAircraft(newAircraft2, 'serviceXY2a', 130);
+var sxy2b =  addWorkToAircraft(newAircraft2, 'serviceXY2b', 160);
+ reduceTimeToExecute(newAircraft2, 20);
+ getAircraftsForRepairs(100); // [ newAircraft1 ]
+ removeAircraft(newAircraft1);
+ getAircraftsForRepairs(100); // []
+ reduceTimeToExecute(newAircraft2, 20);
+ getAircraftsForRepairs(100); // [ newAircraft2 ]
 dodawac usuwac samoloty
 dodac prace do samoloty
 na danym samolocie zredukowac czas pozostaly naprawy
