@@ -27,11 +27,14 @@ function testResults (form) {
       <nav>
         <h1>Aircrafts</h1>
         <button id="add" title="Add new aircraft">➕</button>
-        <button id="time" title="Add time to execute">⏳+</button>
         <button id="repairs" title="Display aircrafts for repair">🔧❗</button>
       </nav>
-      <FORM NAME="addair" ACTION="" METHOD="GET">
+      <FORM id="addF" ACTION="" METHOD="GET">
          <INPUT TYPE="text" NAME="inputbox" placeholder="Aircraft code">
+         <INPUT TYPE="button" NAME="button" Value="✓" >
+      </FORM>
+      <FORM id="repairsF" ACTION="" METHOD="GET">
+         <INPUT TYPE="text" NAME="inputbox" placeholder="Max time allowed">
          <INPUT TYPE="button" NAME="button" Value="✓" >
       </FORM>
       <ul id="list">
