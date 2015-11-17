@@ -117,16 +117,15 @@ window.onload = function () {
 
      getAircraftsForRepairs = function(maxTimeToExecute) {
         // przejrzec wszystjkie prace wszystk samolotow
-        if (typeof maxTimeToExecute === 'number'){
+        if (Number(maxTimeToExecute)){
+          maxTimeToExecute = Number(maxTimeToExecute);
         	 aircraftsForRepair = [];
-		     aircrafts.forEach(function(item, index) {
+		    aircrafts.forEach(function(item, index) {
 
                if (item.services !== null && item.services.length >0){
-                    item.services.forEach(function(childItem) {
-
-                        if (UAM.aircraftsForRepair.indexOf(item)===-1 &&
-                        childItem.timeToExecute <= maxTimeToExecute){
-                            UAM.aircraftsForRepair.push(item);
+                  item.services.forEach(function(childItem) {
+                     if (UAM.aircraftsForRepair.indexOf(item)===-1 && childItem.timeToExecute <= maxTimeToExecute){
+                           UAM.aircraftsForRepair.push(item);
                         }
                     });
                }
@@ -197,13 +196,22 @@ toggleForm = function(form) {
          this.parentNode.parentNode.removeChild(this.parentNode);
       };
    }
-//populacja listy danymi z aircrafts
-   addArray= function(array) {
+
+   removeList = function () {
+      var list = document.getElementsByTagName("li");
+      for (var i = 0; i < list.length; i++) {
+         this.parentNode.parentNode.removeChild(this.parentNode);
+      }
+   }
+
+   addArray = function(array) {
+      removeList();
       for (var i=0; i< array.length; i++) {
          addLi(array[i].code);
       }
    }
 
+   //populacja listy danymi z aircrafts
    addArray(aircrafts);
 
    //widzialność formularza dodania samolotu
@@ -231,9 +239,10 @@ toggleForm = function(form) {
    //działanie formularza
    var repairsFormButton = repairsForm.button;
    repairsFormButton.onclick = function() {
-      toggleForm(repairsForm);
       var input = repairsForm.inputbox.value;
-      addArray(getAircraftsForRepairs(input));
+      var list = getAircraftsForRepairs(input);
+      addArray(list);
+      toggleForm(repairsForm);
    }
 
 };
