@@ -41,12 +41,14 @@ window.onload = function () {
                code: newAircraftCode,
                services: []
             });
-            return  aircrafts[ aircrafts.length - 1];
+            return aircrafts[ aircrafts.length - 1];
          } else {
             console.log('Aircraft with this code already exists.');
+            return undefined;
          }
       } else {
          console.log('Wrong type!');
+         return undefined;
       }
    };
 
@@ -94,9 +96,8 @@ window.onload = function () {
         if (typeof aircraft === 'object' && typeof time === 'number'){
             var index =  aircrafts.indexOf(aircraft);
             if (index !== -1) {
-                if (UAM.aircrafts[index].services !== null &&
-                UAM.aircrafts[index].services.length > 0){
-
+                if (aircrafts[index].services !== null &&
+                aircrafts[index].services.length > 0){
                      aircrafts[index].services.forEach (function(item) {
                         if (item.timeToExecute - time < 0){
                            item.timeToExecute = 0;
@@ -124,8 +125,8 @@ window.onload = function () {
 
                if (item.services !== null && item.services.length >0){
                   item.services.forEach(function(childItem) {
-                     if (UAM.aircraftsForRepair.indexOf(item)===-1 && childItem.timeToExecute <= maxTimeToExecute){
-                           UAM.aircraftsForRepair.push(item);
+                     if (aircraftsForRepair.indexOf(item)===-1 && childItem.timeToExecute <= maxTimeToExecute){
+                           aircraftsForRepair.push(item);
                         }
                     });
                }
@@ -136,59 +137,61 @@ window.onload = function () {
 			console.log('Must be a number!');
 		}
    };
+//////////////
+createButton = function (title, label) {
+   var button = document.createElement("button");
+   button.setAttribute("title", title);
+   button.appendChild(document.createTextNode(label));
+   return button;
+};
+////////
+   addLi = function (code) {
+      var ul = document.getElementById("list");
+      var li = document.createElement("li");
+      var span = document.createElement("span");
+
+      //dodanie eventu do buttona usuwania
 
 
- addLi = function (code) {
-   var ul = document.getElementById("list");
-   var li = document.createElement("li");
-   var span = document.createElement("span");
+      span.appendChild(document.createTextNode(code));
+      li.appendChild(span);
+      li.appendChild(createButton("Schedule repair","🔧+"));
+      li.appendChild(createButton("Reduce time to execute","⏳-"));
+      li.appendChild(createButton("Remove aircraft","➖"))
 
-   var removeT = document.createAttribute("title");
-   removeT.value = "Remove aircraft";
-   var removeB = document.createElement("button");
-   removeB.setAttributeNode(removeT);
-
-   var timeT = document.createAttribute("title");
-   timeT.value = "Reduce time to execute";
-   var timeB = document.createElement("button");
-   timeB.setAttributeNode(timeT);
-
-   var addRepairT = document.createAttribute("title");
-   addRepairT.value = "Schedule repair";
-   var addRepairB = document.createElement("button");
-   addRepairB.setAttributeNode(addRepairT);
-
-   //uzupełnianie tekstem "dzieci" elementu
-   span.appendChild(document.createTextNode(code));
-   addRepairB.appendChild(document.createTextNode("🔧+"));
-   timeB.appendChild(document.createTextNode("⏳-"));
-   removeB.appendChild(document.createTextNode("➖"));
-
-   //dodanie eventu do buttona usuwania
-   removeB.onclick = function () {
-      this.parentNode.parentNode.removeChild(this.parentNode);
-      removeAircraftByCode(this.parentNode.firstChild.textContent);
+      li.lastChild.onclick = function () {
+         this.parentNode.parentNode.removeChild(this.parentNode);
+         removeAircraftByCode(this.parentNode.firstChild.textContent);
+      };
+      ul.appendChild(li);
+   };
+///////////////////
+   toggleForm = function(form) {
+      if (form.style.display != 'block') {
+         form.style.display = 'block';
+      }
+      else {
+         form.style.display = 'none';
+      }
    };
 
-   //tworzenie struktury html elementu listy
-   li.appendChild(span);
-   li.appendChild(addRepairB);
-   li.appendChild(timeB);
-   li.appendChild(removeB);
-   //dodanie elementu do listy
-   ul.appendChild(li);
-};
 
-toggleForm = function(form) {
-   if (form.style.display != 'block') {
-      form.style.display = 'block';
+   removeList = function () {
+      var list = document.getElementsByTagName("ul")[0].children;
+      if (list) {
+         for (var i = 0; i < list.length; i++) {
+            list[i].parentNode.parentNode.removeChild(list[i].parentNode);
+         }
+      }
    }
-   else {
-      form.style.display = 'none';
-   }
-};
 
-   var listItems = document.getElementsByTagName('li');
+   addArray = function(array) {
+      for (var i=0; i< array.length; i++) {
+         addLi(array[i].code);
+      }
+   }
+
+   var listItems = document.getElementsByTagName("li");
 
 
    for (var i = 0; i < listItems.length; i++) {
@@ -197,52 +200,41 @@ toggleForm = function(form) {
       };
    }
 
-   removeList = function () {
-      var list = document.getElementsByTagName("li");
-      for (var i = 0; i < list.length; i++) {
-         this.parentNode.parentNode.removeChild(this.parentNode);
-      }
-   }
-
-   addArray = function(array) {
-      removeList();
-      for (var i=0; i< array.length; i++) {
-         addLi(array[i].code);
-      }
-   }
 
    //populacja listy danymi z aircrafts
    addArray(aircrafts);
 
-   //widzialność formularza dodania samolotu
+   //dodanie samolotu
    var addButton = document.getElementById('add');
-   var addForm = document.getElementById("addF");
    addButton.onclick = function() {
-      toggleForm(addForm);
+      var input = prompt("Aircraft code:","i.e. AB-CDE");
+      if (addAircraft(input)) {
+         addLi(input);
+         console.log(aircrafts);
+      }
    }
 
-   //działanie formularza
-   var addFormButton = addForm.button;
-   addFormButton.onclick = function() {
-      toggleForm(addForm)
-      var input = addForm.inputbox.value;
-      addLi(input);
-   }
-
-   //widzialność formularza z samolotami do naprawy
+   //samoloty do naprawy
    var  repairsButton = document.getElementById('repairs');
-   var repairsForm = document.getElementById("repairsF");
    repairsButton.onclick = function() {
-      toggleForm(repairsForm);
+      var input = prompt("Max time allowed:","100");
+      var list = getAircraftsForRepairs(input);
+      removeList();
+      if(list) {
+         addArray(list);
+         console.log(list);
+      }
    }
 
-   //działanie formularza
-   var repairsFormButton = repairsForm.button;
-   repairsFormButton.onclick = function() {
-      var input = repairsForm.inputbox.value;
-      var list = getAircraftsForRepairs(input);
-      addArray(list);
-      toggleForm(repairsForm);
+   var refreshButton = document.getElementById('refresh');
+   refreshButton.onclick = function() {
+      removeList();
+      if(aircrafts) {
+         addArray(aircrafts);
+      }
+      else {
+         alert("There are no stored aircrafts");
+      }
    }
 
 };
