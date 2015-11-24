@@ -16,6 +16,7 @@ body {
     color: white;
 }
 
+
 .column *{
     padding: 15px;
     overflow: hidden;
@@ -60,7 +61,7 @@ body {
 
 .right p:first-line {
     font-weight: bold;
-    text-shadow: -4px 4px 2px white;  
+    text-shadow: -4px 4px 2px white;
 }
 
 .second h1 {

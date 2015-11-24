@@ -1,13 +1,13 @@
 window.addEventListener('DOMContentLoaded', function () {
 	//When the page structure is loaded...
     //oninput = function
-    
+
    /* var weightInput = document.querySelector('.weight input'),
         weightSpan = document.querySelector('.weight span'),
         heightInput = document.querySelector('.height input'),
         heightSpan = document.querySelector('.height span'),
         bmiSpan = document.querySelector('h1 span');
-    
+
     function updateBMI() {
         var weight = +weightSpan.textContent,
             height = (+heightSpan.textContent) / 100;
@@ -15,29 +15,73 @@ window.addEventListener('DOMContentLoaded', function () {
         //var result = ^^^
         // if (result == 17) {
     }
-    
+
     function updateWeight(event) {
         weightSpan.textContent = weighInput.value;
         updateBMI();
     }
-    
+
     function updateHeight(event) {
         heightSpan.textContent = event.target.value;
         updateBMI();
     }
-    
+
     weightInput.addEventListener('input', updateWeight);*/
-    
+
     var weightSlider = document.querySelector('.weight input');
     weightSlider.addEventListener('input', function() {
         document.querySelector('.weight span').innerHTML= weightSlider.value;
     })
 
+    //When the page structure is loaded...
+
     var heightSlider = document.querySelector('.height input');
     heightSlider.addEventListener('input', function() {
         document.querySelector('.height span').innerHTML= heightSlider.value;
     })
-    
-    
+
+
 });
 
+    var weightSpan = document.querySelector('.weight span'),
+        weightInput = document.querySelector('.weight input'),
+        heightSpan = document.querySelector('.height span'),
+        heightInput = document.querySelector('.height input'),
+        bmiSpan = document.querySelector('h1 span');
+
+    function updateBmi() {
+        var weight = weightInput.value,
+            height = (+heightSpan.textContent) / 100;
+
+        var result = weight / Math.pow(height, 2);
+
+        bmiSpan.textContent = result.toFixed(2);
+
+        bmiSpan.className = '';
+        if (result < 17 || result > 30) {
+            bmiSpan.classList.add('bad');
+        } else if (result < 19 || result > 25) {
+            bmiSpan.classList.add('medium');
+        } else {
+            bmiSpan.classList.add('ok');
+        }
+    }
+
+    function updateWeight(event) {
+        weightSpan.textContent = weightInput.value;
+
+
+        updateBmi();
+    }
+
+    function updateHeight(event) {
+        heightSpan.textContent = heightInput.value;
+
+        updateBmi();
+    }
+
+    updateBmi();
+
+    weightInput.addEventListener('input', updateWeight);
+    heightInput.addEventListener('input', updateHeight);
+});
