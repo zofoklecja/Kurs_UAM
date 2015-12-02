@@ -1,0 +1,20 @@
+{
+  "name": "najs371811",
+  "version": "1.0.0",
+  "description": "test package for the NAJ class",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zofoklecja/najs371811.git"
+  },
+  "author": "Zofia Drozd",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zofoklecja/najs371811/issues"
+  },
+  "homepage": "https://github.com/zofoklecja/najs371811#readme"
+}

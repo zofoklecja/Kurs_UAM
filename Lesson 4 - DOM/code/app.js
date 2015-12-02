@@ -1,43 +1,44 @@
 window.addEventListener('DOMContentLoaded', function () {
-	//When the page structure is loaded...
-    //oninput = function
-    
-   /* var weightInput = document.querySelector('.weight input'),
-        weightSpan = document.querySelector('.weight span'),
-        heightInput = document.querySelector('.height input'),
+    //When the page structure is loaded...
+
+    var weightSpan = document.querySelector('.weight span'),
+        weightInput = document.querySelector('.weight input'),
         heightSpan = document.querySelector('.height span'),
+        heightInput = document.querySelector('.height input'),
         bmiSpan = document.querySelector('h1 span');
-    
-    function updateBMI() {
-        var weight = +weightSpan.textContent,
+
+    function updateBmi() {
+        var weight = weightInput.value,
             height = (+heightSpan.textContent) / 100;
-        bmiSpan.textContent = weight / (height * height);
-        //var result = ^^^
-        // if (result == 17) {
+
+        var result = weight / Math.pow(height, 2);
+
+        bmiSpan.textContent = result.toFixed(2);
+
+        bmiSpan.className = '';
+        if (result < 17 || result > 30) {
+            bmiSpan.classList.add('bad');
+        } else if (result < 19 || result > 25) {
+            bmiSpan.classList.add('medium');
+        } else {
+            bmiSpan.classList.add('ok');
+        }
     }
-    
+
     function updateWeight(event) {
-        weightSpan.textContent = weighInput.value;
-        updateBMI();
+        weightSpan.textContent = weightInput.value;
+
+        updateBmi();
     }
-    
+
     function updateHeight(event) {
-        heightSpan.textContent = event.target.value;
-        updateBMI();
+        heightSpan.textContent = heightInput.value;
+
+        updateBmi();
     }
-    
-    weightInput.addEventListener('input', updateWeight);*/
-    
-    var weightSlider = document.querySelector('.weight input');
-    weightSlider.addEventListener('input', function() {
-        document.querySelector('.weight span').innerHTML= weightSlider.value;
-    })
 
-    var heightSlider = document.querySelector('.height input');
-    heightSlider.addEventListener('input', function() {
-        document.querySelector('.height span').innerHTML= heightSlider.value;
-    })
-    
-    
+    updateBmi();
+
+    weightInput.addEventListener('input', updateWeight);
+    heightInput.addEventListener('input', updateHeight);
 });
-
