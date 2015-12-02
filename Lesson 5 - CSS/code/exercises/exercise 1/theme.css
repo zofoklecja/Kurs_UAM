@@ -1,4 +1,3 @@
-
 body {
     font-family: "Times New Roman", Times, serif;
 }
@@ -16,6 +15,7 @@ body {
     margin: 0 30px 0 30px;
     color: white;
 }
+
 
 .column *{
     padding: 15px;
@@ -61,7 +61,7 @@ body {
 
 .right p:first-line {
     font-weight: bold;
-    text-shadow: -4px 4px 2px white;  
+    text-shadow: -4px 4px 2px white;
 }
 
 .second h1 {
@@ -90,4 +90,3 @@ zbudować podczas zajęć strukturę html + css + javascript
 jpeg z wyglądaem docelowym, opis oczekiwanego działania
 można korzystać z neta, ale bez komunikacji
 */
-

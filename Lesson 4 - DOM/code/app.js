@@ -27,7 +27,6 @@ window.addEventListener('DOMContentLoaded', function () {
 
     function updateWeight(event) {
         weightSpan.textContent = weightInput.value;
-
         updateBmi();
     }
 
