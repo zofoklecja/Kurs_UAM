@@ -1,20 +1,20 @@
 angular.module('myapp', ['ui.router']).config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider.state('users', {
         url: '/users',
-        controller: 'UsersCtrl.js',
+        controller: 'UsersCtrl',
         templateUrl: 'partials/users.html'
     }).state('user', {
         url: '/user/:userId',
-        controller: 'UserCtrl.js',
+        controller: 'UserCtrl',
         templateUrl: 'partials/user.html'
-    }).state('user.inventory',{
+    }).state('user.inventory', {
         url: '/inventory',
-        controller: 'inventoryCtrl.js',
+        controller: 'InventoryCtrl',
         templateUrl: 'partials/inventory.html'
-    }).state('user.favorites',{
+    }).state('user.favorites', {
         url: '/favorites',
-        controller: 'favoritesCtrl.js',
+        controller: 'FavoritesCtrl',
         templateUrl: 'partials/favorites.html'
-    })
+    });
     $urlRouterProvider.otherwise('/users');
 });
