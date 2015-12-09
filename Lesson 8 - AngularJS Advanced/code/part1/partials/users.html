@@ -1,1 +1,6 @@
 Users list
+<ul>
+    <li ng-repeat = "(key,user) in users">
+        <a ui-sref="user({userId: key})">{{user.firstName}} {{user.lastName}}</a>
+    </li>
+</ul>
